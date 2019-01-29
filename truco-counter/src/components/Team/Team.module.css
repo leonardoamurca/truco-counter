@@ -1,0 +1,32 @@
+.Team {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Team input {
+  width: 230px;
+  height: 30px;
+}
+
+.Team button {
+  border: 1px solid blue;
+  padding:16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+  width: 55px;
+}
+
+@media (min-width: 500px) {
+  .Person {
+    width: 450px;
+  }
+}
+
+

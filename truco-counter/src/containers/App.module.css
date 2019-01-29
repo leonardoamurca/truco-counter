@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+
+.App img {
+  width: 200px;
+  height: 200px;
+  justify-content: center;
+}
