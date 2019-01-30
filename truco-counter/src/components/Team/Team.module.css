@@ -14,13 +14,17 @@
 }
 
 .Team button {
-  border: 1px solid blue;
+  border: 1px solid white;
   padding:16px;
-  background-color: green;
+  background-color: black;
   font: inherit;
   color: white;
   cursor: pointer;
   width: 55px;
+}
+
+.Team p {
+  font-size: 30px;
 }
 
 @media (min-width: 500px) {

@@ -7,11 +7,11 @@ const team = ( props ) => {
   return (
     <div className={styles.Team}>
       <p>{props.name}</p>
-      <input type="text" value={props.name}/>
+      <input type="text" value={props.name} onChange={props.change}/>
       <br/>
       <div className={classes.join(' ')}>
-        <button>-</button>
-        <button>+</button>
+        <button onClick={props.minClick}>-</button>
+        <button onClick={props.plusClick}>+</button>
       </div>
       <p>{props.counter}</p>
     </div>
