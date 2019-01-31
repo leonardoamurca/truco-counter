@@ -10,8 +10,8 @@ const team = ( props ) => {
       <input type="text" value={props.teamName} onChange={props.changeInput}/>
       <br/>
       <div className={classes.join(' ')}>
-        <button onClick={props.minClick}>-</button>
-        <button onClick={props.plusClick}>+</button>
+        <button onClick={props.minTwo}>-</button>
+        <button onClick={props.plusTwo}>+</button>
       </div>
       <p>{props.teamPoints}</p>
     </div>
