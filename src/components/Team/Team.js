@@ -6,14 +6,14 @@ const team = ( props ) => {
   classes.push(styles.buttonContainer);
   return (
     <div className={styles.Team}>
-      <p>{props.name}</p>
-      <input type="text" value={props.name} onChange={props.change}/>
+      <p>{props.teamName}</p>
+      <input type="text" value={props.teamName} onChange={props.changeInput}/>
       <br/>
       <div className={classes.join(' ')}>
         <button onClick={props.minClick}>-</button>
         <button onClick={props.plusClick}>+</button>
       </div>
-      <p>{props.counter}</p>
+      <p>{props.teamPoints}</p>
     </div>
   );
 }
