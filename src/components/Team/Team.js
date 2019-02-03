@@ -2,6 +2,10 @@ import React from 'react';
 import styles from './Team.module.css';
 
 const team = ( props ) => {
+  let disableButton = false;
+  if(props.teamPoints > 10) {
+    disableButton = true;
+  }
   let classes = [];
   classes.push(styles.buttonContainer);
   return (
@@ -11,7 +15,7 @@ const team = ( props ) => {
       <br/>
       <div className={classes.join(' ')}>
         <button onClick={props.minTwo}>-</button>
-        <button onClick={props.plusTwo}>+</button>
+        <button onClick={props.plusTwo} disabled={disableButton}>+</button>
       </div>
       <p>{props.teamPoints}</p>
     </div>

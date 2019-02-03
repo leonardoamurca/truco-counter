@@ -9,7 +9,7 @@ class App extends Component {
     teams: [
       { name: 'Team 01', points: 0, wins: 0 },
       { name: 'Team 02', points: 0, wins: 0 },
-    ]
+    ],
   }
 
   nameChangeHandler = (event, index) => {
@@ -39,18 +39,48 @@ class App extends Component {
     this.setState({ teams: teams });
   }
 
-  
+  zeroHandler(index) {
+    const team = { ...this.state.teams[index] };
+    team.points = 0;
+
+    const teams = [...this.state.teams];
+    teams[index] = team;
+    this.setState({ teams: teams });
+  }
+
+  winHandler(index) {
+    const team = { ...this.state.teams[index] };
+    team.wins += 1;
+
+    const teams = [...this.state.teams];
+    teams[index] = team;
+    this.setState({ teams: teams })
+  }
 
   render() {
-    console.log(this.state);
+    const { teams } = this.state;
+    const { 
+      nameChangeHandler, 
+      plusHandler, 
+      minHandler, 
+      winHandler 
+    } = this;
+    
+    teams.forEach(team => {
+      if(team.points < 0) {
+        this.zeroHandler(teams.indexOf(team));
+      }
+    })
+
     return (
       <div className={styles.App}>
         <img src={logo} alt="logo"/>
         <Teams 
-          teams={this.state.teams} 
-          nameChange={this.nameChangeHandler}
-          plus={this.plusHandler}
-          min={this.minHandler}/>
+          teams={teams} 
+          nameChange={nameChangeHandler}
+          plus={plusHandler}
+          min={minHandler}
+          win={winHandler}/>
       </div>
     );
   }
