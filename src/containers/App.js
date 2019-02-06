@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './assets/truco_logo.png';
 import styles from  './App.module.css';
 import Teams from '../components/Teams/Teams';
-import Modal from 'react-responsive-modal';
+import Modal from '../components/Modal/Modal';
 
 
 class App extends Component {
@@ -62,12 +62,26 @@ class App extends Component {
     this.setState({ open: false });
   };
 
+  endGameHandler = () => {
+    const teams = [...this.state.teams];
+    teams.forEach(team => {
+      team.points = 0;
+    });
+
+    this.setState({
+      teams: teams,
+      open: false,
+    });
+  } 
+  
   render() {
     const { teams, open } = this.state;
     const { 
       nameChangeHandler, 
       plusHandler, 
       minHandler, 
+      onCloseModal,
+      endGameHandler,
     } = this;
     
     return (
@@ -78,11 +92,7 @@ class App extends Component {
           nameChange={nameChangeHandler}
           plus={plusHandler}
           min={minHandler}/>
-        <Modal open={open} onClose={this.onCloseModal} high>
-          <h2>Vencedor</h2>
-          <h2>Vencedor</h2>
-          <button onClick={this.onCloseModal}>Finalizar partida!</button>
-        </Modal>
+        <Modal openModal={open} closeModal={onCloseModal} endGame={endGameHandler}/>
       </div>
     );
   }
