@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './assets/truco_logo.png';
 import styles from  './App.module.css';
 import Teams from '../components/Teams/Teams';
+import Modal from 'react-responsive-modal';
 
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
       { name: 'Team 01', points: 0, wins: 0 },
       { name: 'Team 02', points: 0, wins: 0 },
     ],
+    open: false,
   }
 
   nameChangeHandler = (event, index) => {
@@ -25,6 +27,15 @@ class App extends Component {
     const team = { ...this.state.teams[index] };
     team.points += 2;
 
+    if(team.points  === 12) {
+      team.wins += 1;
+      this.onOpenModal();
+
+    } 
+    if(team.points > 12) {
+      team.points -= 2;
+    }
+
     const teams = [...this.state.teams];
     teams[index] = team;
     this.setState({ teams: teams });
@@ -34,44 +45,31 @@ class App extends Component {
     const team = { ...this.state.teams[index] };
     team.points -= 2;
 
-    const teams = [...this.state.teams];
-    teams[index] = team;
-    this.setState({ teams: teams });
-  }
-
-  zeroHandler(index) {
-    const team = { ...this.state.teams[index] };
-    team.points = 0;
+    if (team.points < 0) {
+      team.points += 2;
+    }
 
     const teams = [...this.state.teams];
     teams[index] = team;
     this.setState({ teams: teams });
   }
 
-  winHandler(index) {
-    const team = { ...this.state.teams[index] };
-    team.wins += 1;
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
 
-    const teams = [...this.state.teams];
-    teams[index] = team;
-    this.setState({ teams: teams })
-  }
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
 
   render() {
-    const { teams } = this.state;
+    const { teams, open } = this.state;
     const { 
       nameChangeHandler, 
       plusHandler, 
       minHandler, 
-      winHandler 
     } = this;
     
-    teams.forEach(team => {
-      if(team.points < 0) {
-        this.zeroHandler(teams.indexOf(team));
-      }
-    })
-
     return (
       <div className={styles.App}>
         <img src={logo} alt="logo"/>
@@ -79,8 +77,12 @@ class App extends Component {
           teams={teams} 
           nameChange={nameChangeHandler}
           plus={plusHandler}
-          min={minHandler}
-          win={winHandler}/>
+          min={minHandler}/>
+        <Modal open={open} onClose={this.onCloseModal} high>
+          <h2>Vencedor</h2>
+          <h2>Vencedor</h2>
+          <button onClick={this.onCloseModal}>Finalizar partida!</button>
+        </Modal>
       </div>
     );
   }
