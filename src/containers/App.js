@@ -73,7 +73,7 @@ class App extends Component {
       open: false,
     });
   } 
-  
+
   render() {
     const { teams, open } = this.state;
     const { 
@@ -83,7 +83,13 @@ class App extends Component {
       onCloseModal,
       endGameHandler,
     } = this;
-    
+
+    let winner = '';
+    teams.forEach(team => {
+      if(team.points === 12) {
+        winner = team.name;
+      }
+    })
     return (
       <div className={styles.App}>
         <img src={logo} alt="logo"/>
@@ -92,7 +98,7 @@ class App extends Component {
           nameChange={nameChangeHandler}
           plus={plusHandler}
           min={minHandler}/>
-        <Modal openModal={open} closeModal={onCloseModal} endGame={endGameHandler}/>
+        <Modal winner={winner} openModal={open} closeModal={onCloseModal} endGame={endGameHandler}/>
       </div>
     );
   }
