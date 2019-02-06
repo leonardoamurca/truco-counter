@@ -1,14 +1,14 @@
 {
-  "main.css": "/static/css/main.3a32b2eb.chunk.css",
-  "main.js": "/static/js/main.184016b4.chunk.js",
-  "main.js.map": "/static/js/main.184016b4.chunk.js.map",
-  "static/js/1.da4c2d94.chunk.js": "/static/js/1.da4c2d94.chunk.js",
-  "static/js/1.da4c2d94.chunk.js.map": "/static/js/1.da4c2d94.chunk.js.map",
+  "main.css": "/static/css/main.1069d8cb.chunk.css",
+  "main.js": "/static/js/main.05e46ab1.chunk.js",
+  "main.js.map": "/static/js/main.05e46ab1.chunk.js.map",
+  "static/js/1.54a87f50.chunk.js": "/static/js/1.54a87f50.chunk.js",
+  "static/js/1.54a87f50.chunk.js.map": "/static/js/1.54a87f50.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/truco_logo.png": "/static/media/truco_logo.7efdfcbf.png",
-  "static/css/main.3a32b2eb.chunk.css.map": "/static/css/main.3a32b2eb.chunk.css.map",
+  "static/css/main.1069d8cb.chunk.css.map": "/static/css/main.1069d8cb.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.9e7dbc245f674e558c7c44dc528f6949.js": "/precache-manifest.9e7dbc245f674e558c7c44dc528f6949.js",
+  "precache-manifest.5fffa9941ab8d33347b2cd8171cfcf8b.js": "/precache-manifest.5fffa9941ab8d33347b2cd8171cfcf8b.js",
   "service-worker.js": "/service-worker.js"
 }
