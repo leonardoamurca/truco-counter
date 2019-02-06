@@ -11,7 +11,7 @@ const team = ( props ) => {
       <p style={{fontSize: '20px'}}>
       Partidas Vencidas: {props.teamWins}
       </p>
-      <input type="text" value={props.teamName} onChange={props.changeInput}/>
+      <input type="text" value={props.teamName} onChange={props.changeInput} maxLength={13}/>
       <br/>
       <div className={classes.join(' ')}>
         <button onClick={props.minTwo}>-</button>
