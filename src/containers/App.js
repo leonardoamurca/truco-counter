@@ -8,10 +8,10 @@ import Modal from '../components/Modal/Modal';
 class App extends Component {
   state = {
     teams: [
-      { name: 'Team 01', points: 0, wins: 0 },
-      { name: 'Team 02', points: 0, wins: 0 },
+      { name: 'Nós', points: 0, games: 0, fall: 0 },
+      { name: 'Eles', points: 0, games: 0, fall: 0 },
     ],
-    open: false,
+    openModal: false,
   }
 
   nameChangeHandler = (event, index) => {
@@ -28,12 +28,30 @@ class App extends Component {
     team.points += 2;
 
     if(team.points  === 12) {
-      team.wins += 1;
+      team.games += 1;
       this.onOpenModal();
 
     } 
     if(team.points > 12) {
       team.points -= 2;
+    }
+
+    const teams = [...this.state.teams];
+    teams[index] = team;
+    this.setState({ teams: teams });
+  }
+
+  plus4Handler = (index) => {
+    const team = { ...this.state.teams[index] };
+    team.points += 4;
+
+    if (team.points === 12) {
+      team.games += 1;
+      this.onOpenModal();
+
+    }
+    if (team.points > 12) {
+      team.points -= 4;
     }
 
     const teams = [...this.state.teams];
@@ -55,11 +73,11 @@ class App extends Component {
   }
 
   onOpenModal = () => {
-    this.setState({ open: true });
+    this.setState({ openModal: true });
   };
 
   onCloseModal = () => {
-    this.setState({ open: false });
+    this.setState({ openModal: false });
   };
 
   endGameHandler = () => {
@@ -70,18 +88,19 @@ class App extends Component {
 
     this.setState({
       teams: teams,
-      open: false,
+      openModal: false,
     });
   } 
 
   render() {
-    const { teams, open } = this.state;
+    const { teams, openModal } = this.state;
     const { 
       nameChangeHandler, 
       plusHandler, 
       minHandler, 
       onCloseModal,
       endGameHandler,
+      plus4Handler,
     } = this;
 
     let winner = '';
@@ -89,7 +108,8 @@ class App extends Component {
       if(team.points === 12) {
         winner = team.name;
       }
-    })
+      
+    });
     return (
       <div className={styles.App}>
         <img src={logo} alt="logo"/>
@@ -97,8 +117,13 @@ class App extends Component {
           teams={teams} 
           nameChange={nameChangeHandler}
           plus={plusHandler}
-          min={minHandler}/>
-        <Modal winner={winner} openModal={open} closeModal={onCloseModal} endGame={endGameHandler}/>
+          min={minHandler}
+          plus4={plus4Handler} />
+        <Modal 
+          winner={winner} 
+          openModal={openModal} 
+          closeModal={onCloseModal} 
+          endGame={endGameHandler}/>
       </div>
     );
   }

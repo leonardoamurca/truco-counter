@@ -9,13 +9,16 @@ const team = ( props ) => {
     <div className={styles.Team}>
       <p>{props.teamName}</p>
       <p style={{fontSize: '20px'}}>
-      Partidas Vencidas: {props.teamWins}
+      Jogos Vencidos: {props.teamGames}
       </p>
       <input type="text" value={props.teamName} onChange={props.changeInput} maxLength={13}/>
       <br/>
       <div className={classes.join(' ')}>
         <button onClick={props.minTwo}>-</button>
+        <button onClick={props.plusFour}>+4</button>
         <button onClick={props.plusTwo}>+</button>
+        
+        
       </div>
       <p>{props.teamPoints}</p>
     </div>
