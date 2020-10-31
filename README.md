@@ -1,2 +1,2 @@
 # truco-counter
-Applicativo para contar pontos no truco
+Web Application to count points in "Truco" Game

@@ -1,109 +1,129 @@
 import React, { Component } from 'react';
 import logo from './assets/truco_logo.png';
 import styles from  './App.module.css';
-import Teams from '../containers/Teams/Teams';
+import Teams from '../components/Teams/Teams';
+import Modal from '../components/Modal/Modal';
 
 
 class App extends Component {
   state = {
-    leftTeam: {
-      name: 'Team 01',
-      counter: 0,
-    },
-    rightTeam: {
-      name: 'Team 02',
-      counter: 0,
+    teams: [
+      { name: 'Nós', points: 0, games: 0, fall: 0 },
+      { name: 'Eles', points: 0, games: 0, fall: 0 },
+    ],
+    openModal: false,
+  }
+
+  nameChangeHandler = (event, index) => {
+    const team = { ...this.state.teams[index] };
+    team.name = event.target.value;
+
+    const teams = [...this.state.teams];
+    teams[index] = team;
+    this.setState({ teams: teams });
+  }
+
+  plusHandler = (index) => {
+    const team = { ...this.state.teams[index] };
+    team.points += 2;
+
+    if(team.points  === 12) {
+      team.games += 1;
+      this.onOpenModal();
+
+    } 
+    if(team.points > 12) {
+      team.points -= 2;
     }
+
+    const teams = [...this.state.teams];
+    teams[index] = team;
+    this.setState({ teams: teams });
   }
 
-  nameChangeHandler = (event, name) => {
-    if(name === this.state.leftTeam.name) {
-      const leftTeam = { ...this.state.leftTeam }
-      leftTeam.name = event.target.value;
-      
-      this.setState({leftTeam: {
-        name: leftTeam.name,
-        counter: this.state.leftTeam.counter,
-      }});
+  plus4Handler = (index) => {
+    const team = { ...this.state.teams[index] };
+    team.points += 4;
 
-    } else {
-      const rightTeam = { ...this.state.rightTeam }
-      rightTeam.name = event.target.value;
+    if (team.points === 12) {
+      team.games += 1;
+      this.onOpenModal();
 
-      this.setState({
-        rightTeam: {
-          name: rightTeam.name,
-          counter: this.state.rightTeam.counter,
-        }
-      });
     }
+    if (team.points > 12) {
+      team.points -= 4;
+    }
+
+    const teams = [...this.state.teams];
+    teams[index] = team;
+    this.setState({ teams: teams });
   }
 
-  plusLeftHandler = () => {
-    const count = {...this.state.leftTeam};
-    count.counter += 2;
+  minHandler = (index) => {
+    const team = { ...this.state.teams[index] };
+    team.points -= 2;
+
+    if (team.points < 0) {
+      team.points += 2;
+    }
+
+    const teams = [...this.state.teams];
+    teams[index] = team;
+    this.setState({ teams: teams });
+  }
+
+  onOpenModal = () => {
+    this.setState({ openModal: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ openModal: false });
+  };
+
+  endGameHandler = () => {
+    const teams = [...this.state.teams];
+    teams.forEach(team => {
+      team.points = 0;
+    });
 
     this.setState({
-      leftTeam: {
-        name: this.state.leftTeam.name,
-        counter: count.counter
-      }
+      teams: teams,
+      openModal: false,
     });
-  }
-
-  minLeftHandler = () => {
-    const count = { ...this.state.leftTeam };
-    count.counter -= 2;
-
-    this.setState({
-      leftTeam: {
-        name: this.state.leftTeam.name,
-        counter: count.counter
-      }
-    });
-  }
-
-  plusRightHandler = () => {
-    const count = { ...this.state.rightTeam };
-    count.counter += 2;
-
-    this.setState({
-      rightTeam: {
-        name: this.state.rightTeam.name,
-        counter: count.counter
-      }
-    });
-  }
-
-  minRightHandler = () => {
-    const count = { ...this.state.rightTeam };
-    count.counter -= 2;
-
-    this.setState({
-      rightTeam: {
-        name: this.state.rightTeam.name,
-        counter: count.counter
-      }
-    });
-  }
-
-  
+  } 
 
   render() {
+    const { teams, openModal } = this.state;
+    const { 
+      nameChangeHandler, 
+      plusHandler, 
+      minHandler, 
+      onCloseModal,
+      endGameHandler,
+      plus4Handler,
+    } = this;
+
+    let winner = '';
+    teams.forEach(team => {
+      if(team.points === 12) {
+        winner = team.name;
+      }
+      
+    });
     return (
       <div className={styles.App}>
-        <img src={logo}/>
+        <img src={logo} alt="logo"/>
         <Teams 
-        rightCounter={this.state.rightTeam.counter}
-        rightName={this.state.rightTeam.name}
-        leftCounter={this.state.leftTeam.counter}
-        leftName={this.state.leftTeam.name}
-        nameChange={this.nameChangeHandler}
-        plusLeft={this.plusLeftHandler}
-        minLeft={this.minLeftHandler}
-        plusRight={this.plusRightHandler}
-        minRight={this.minRightHandler}
-        />
+          teams={teams} 
+          nameChange={nameChangeHandler}
+          plus={plusHandler}
+          min={minHandler}
+          plus4={plus4Handler} />
+        <Modal 
+          winner={winner} 
+          openModal={openModal} 
+          closeModal={onCloseModal} 
+          endGame={endGameHandler}/>
       </div>
     );
   }
